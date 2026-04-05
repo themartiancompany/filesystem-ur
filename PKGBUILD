@@ -184,13 +184,15 @@ _distro_src="${_tarfile_distro}::${_distro_uri}"
 _distro_sig_uri="${_evmfs_dir}/${_distro_sig_sum}"
 _distro_sig_src="${_tarfile_distro}.sig::${_distro_sig_uri}"
 if [[ "${_evmfs}" == "true" ]]; then
-  if [[ "${_git}" == "true" ]]; then
+  if [[ "${_git}" == "false" ]]; then
     _msg=(
       "Not supported."
     )
     echo \
       "${_msg[*]}" \
       1>&2
+    exit \
+      1
   elif [[ "${_git}" == "true" ]]; then
     source+=(
       "${_distro_src}"
