@@ -39,5 +39,5 @@ path = [
   "sysusers",
   "tmpfiles",
 ]
-SPDX-FileCopyrightText = "Arch Linux contributors"
-SPDX-License-Identifier = "0BSD"
+SPDX-FileCopyrightText = "Pellegrino Prevete"
+SPDX-License-Identifier = "AGPL3"
