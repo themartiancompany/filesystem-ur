@@ -1652,7 +1652,7 @@ jobs:
           true
           su \
             -c \
-              "cd ${PWD} && _evmfs="false" _git_service="github" reallymakepkg -v -u -w '/home/user/${_pkgbase}-build' -- -df --nocheck --skippgpcheck" - \
+              "cd ${PWD} && PKGEXT="tar.zst" _evmfs="false" _git_service="github" reallymakepkg -v -u -w '/home/user/${_pkgbase}-build' -- -df --nocheck --skippgpcheck" - \
             "user"
       # - name:
       #     Installs the package.
@@ -2124,13 +2124,15 @@ jobs:
             -v \
             "PKGBUILD" \
             "sha256sums"
-          PKGEXT='.pkg.tar.xz' \
+          PKGEXT='.pkg.tar.zst' \
           _evmfs="false" \
+          _git="true" \
           _git_service="github" \
           makepkg \
             -df \
             --nocheck \
-            --skippgpcheck
+            --skippgpcheck \
+            --skipinteg
           # _evmfs="false" \
           # _git_service="github" \
           # reallymakepkg \

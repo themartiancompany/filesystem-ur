@@ -113,7 +113,7 @@ pkgname=(
 )
 pkgver=2026.04.05
 _commit_distro="fc09643d8bb9c17fca17728e221aa9b43a1a9c1d"
-pkgrel=16
+pkgrel=17
 pkgdesc='Base DogeOS files'
 arch=(
   'any'
