@@ -96,6 +96,11 @@ url="${_http}/${_ns}/${_distro}"
 depends=(
   'iana-etc'
 )
+if [[ "${_os}" == "Android" ]]; then
+  provides=(
+    "resolv-conf"
+  )
+fi
 backup=(
   'etc/crypttab'
   'etc/fstab'
