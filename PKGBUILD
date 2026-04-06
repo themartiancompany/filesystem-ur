@@ -113,7 +113,7 @@ pkgname=(
 )
 pkgver=2026.04.05
 _commit_distro="fc09643d8bb9c17fca17728e221aa9b43a1a9c1d"
-pkgrel=12
+pkgrel=13
 pkgdesc='Base DogeOS files'
 arch=(
   'any'
@@ -329,6 +329,7 @@ prepare() {
 package() {
   local \
     _etc \
+    _var \
     group \
     link \
     mode \
@@ -336,6 +337,8 @@ package() {
     user
   _etc="$(
     _etc_get)"
+  _var="$(
+    _var_get)"
   declare \
     -A \
     directories
@@ -418,7 +421,8 @@ package() {
     symlinks["lib64"]="usr/lib"
     symlinks["usr/lib64"]="lib"
   fi
-  # associative array of target files, their source file, file mode, user and group ownership
+  # associative array of target files, their source file,
+  # file mode, user and group ownership
   files=(
     ["${_etc}/${_distro}-release"]="${_distro}-release:644:0:0"
     ["${_etc}/crypttab"]="crypttab:600:0:0"
@@ -468,46 +472,49 @@ package() {
   )
   cd \
     "${pkgdir}"
-  for dir in "${!directories[@]}"; do
-    IFS=':' \
-    read \
-      mode \
-      user \
-      group <<< \
-      "${directories[$dir]}"
-    install \
-      -vdm \
-      "${mode}" \
-      -o \
-        "${user}" \
-      -g \
-        "$group" \
-      "${dir}"
-  done
-  for link in "${!symlinks[@]}"; do
-    ln \
-      -sv \
-      "${symlinks[$link]}" \
-      "${link}"
-  done
-  for target_file in "${!files[@]}"; do
-    IFS=':'
-    read \
-      source_file \
-      mode \
-      user \
-      group <<< \
-      "${files[$target_file]}"
-    install \
-      -vDm \
-      "${mode}" \
-      -o \
-        "${user}" \
-      -g \
-        "${group}" \
-      "${srcdir}/${source_file}" \
-      "${target_file}"
-  done
+  if [[ "${_os}" != "Android" && \
+        "${_os}" != "Msys" ]]; then
+    for dir in "${!directories[@]}"; do
+      IFS=':' \
+      read \
+        mode \
+        user \
+        group <<< \
+        "${directories[$dir]}"
+      install \
+        -vdm \
+        "${mode}" \
+        -o \
+          "${user}" \
+        -g \
+          "$group" \
+        "${dir}"
+    done
+    for link in "${!symlinks[@]}"; do
+      ln \
+        -sv \
+        "${symlinks[$link]}" \
+        "${link}"
+    done
+    for target_file in "${!files[@]}"; do
+      IFS=':'
+      read \
+        source_file \
+        mode \
+        user \
+        group <<< \
+        "${files[$target_file]}"
+      install \
+        -vDm \
+        "${mode}" \
+        -o \
+          "${user}" \
+        -g \
+          "${group}" \
+        "${srcdir}/${source_file}" \
+        "${target_file}"
+    done
+  fi
   install \
     -vDm644 \
     "${srcdir}/COPYING" \
