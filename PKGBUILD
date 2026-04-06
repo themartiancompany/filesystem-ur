@@ -83,7 +83,7 @@ pkgname=(
 )
 pkgver=2026.04.05
 _commit_distro="fc09643d8bb9c17fca17728e221aa9b43a1a9c1d"
-pkgrel=5
+pkgrel=6
 pkgdesc='Base DogeOS files'
 arch=(
   'any'
@@ -95,6 +95,9 @@ _http="https://${_git_service}.com"
 url="${_http}/${_ns}/${_distro}"
 depends=(
   'iana-etc'
+)
+makedepends=(
+  "coreutils"
 )
 if [[ "${_os}" == "Android" ]]; then
   provides=(

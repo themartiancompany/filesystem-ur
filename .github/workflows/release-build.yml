@@ -1559,6 +1559,15 @@ jobs:
           ls
           _evmfs="false" \
           recipe-get \
+            -v \
+            -o \
+              "array" \
+            -d \
+              " " \
+            "PKGBUILD" \
+            "makedepends"
+          _evmfs="false" \
+          recipe-get \
             -o \
               "array" \
             -d \
