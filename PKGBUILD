@@ -113,7 +113,7 @@ pkgname=(
 )
 pkgver=2026.04.05
 _commit_distro="fc09643d8bb9c17fca17728e221aa9b43a1a9c1d"
-pkgrel=13
+pkgrel=15
 pkgdesc='Base DogeOS files'
 arch=(
   'any'
@@ -521,6 +521,9 @@ package() {
     -t \
     "${pkgdir}/usr/share/licenses/${pkgname}/"
   if [[ "${_os}" == "Android" ]]; then
+    install \
+      -vdm755 \
+      "${pkgdir}/${_etc}"
     printf \
       "%s\n" \
       "nameserver 8.8.8.8" \

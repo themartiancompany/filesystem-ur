@@ -1643,6 +1643,12 @@ jobs:
               recipe-get \
                 "PKGBUILD" \
                 "pkgbase")"
+          # Why?
+          pacman \
+            -Rdd \
+            --noconfirm \
+            "iptables" || \
+          true
           su \
             -c \
               "cd ${PWD} && _evmfs="false" _git_service="github" reallymakepkg -v -u -w '/home/user/${_pkgbase}-build' -- -df --nocheck --skippgpcheck" - \
