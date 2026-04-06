@@ -34,6 +34,21 @@
 #   Tom Gundersen
 #     <teg@jklm.no>
 
+_etc_get() {
+  local \
+    _etc \
+    _os
+  _os="$(
+    uname \
+      -o)"
+  _etc="etc"
+  if [[ "${_os}" == "Android" ]]; then
+    _etc="usr/etc"
+  fi
+  echo \
+    "${_etc}"
+}
+
 _os="$(
   uname \
     -o)"
@@ -83,7 +98,7 @@ pkgname=(
 )
 pkgver=2026.04.05
 _commit_distro="fc09643d8bb9c17fca17728e221aa9b43a1a9c1d"
-pkgrel=7
+pkgrel=8
 pkgdesc='Base DogeOS files'
 arch=(
   'any'
@@ -104,24 +119,26 @@ if [[ "${_os}" == "Android" ]]; then
     "resolv-conf"
   )
 fi
+_etc="$(
+  _etc_get)"
 backup=(
-  'etc/crypttab'
-  'etc/fstab'
-  'etc/group'
-  'etc/gshadow'
-  'etc/host.conf'
-  'etc/hosts'
-  'etc/issue'
-  'etc/ld.so.conf'
-  'etc/nsswitch.conf'
-  'etc/passwd'
-  'etc/profile'
-  'etc/resolv.conf'
-  'etc/securetty'
-  'etc/shadow'
-  'etc/shells'
-  'etc/subgid'
-  'etc/subuid'
+  "${_etc}/crypttab"
+  "${_etc}/fstab"
+  "${_etc}/group"
+  "${_etc}/gshadow"
+  "${_etc}/host.conf"
+  "${_etc}/hosts"
+  "${_etc}/issue"
+  "${_etc}/ld.so.conf"
+  "${_etc}/nsswitch.conf"
+  "${_etc}/passwd"
+  "${_etc}/profile"
+  "${_etc}/resolv.conf"
+  "${_etc}/securetty"
+  "${_etc}/shadow"
+  "${_etc}/shells"
+  "${_etc}/subgid"
+  "${_etc}/subuid"
 )
 source=(
   'COPYING'
@@ -294,11 +311,14 @@ prepare() {
 
 package() {
   local \
+    _etc \
     group \
     link \
     mode \
     source_file \
     user
+  _etc="$(
+    _etc_get)"
   declare \
     -A \
     directories
@@ -313,10 +333,10 @@ package() {
   directories=(
     ["boot"]="755:0:0"
     ["dev"]="755:0:0"
-    ["etc"]="755:0:0"
-    ["etc/ld.so.conf.d"]="755:0:0"
-    ["etc/profile.d"]="755:0:0"
-    ["etc/skel"]="755:0:0"
+    ["${_etc}"]="755:0:0"
+    ["${_etc}/ld.so.conf.d"]="755:0:0"
+    ["${_etc}/profile.d"]="755:0:0"
+    ["${_etc}/skel"]="755:0:0"
     ["home"]="755:0:0"
     ["mnt"]="755:0:0"
     ["opt"]="755:0:0"
@@ -368,7 +388,7 @@ package() {
   # all paths are relative to the root directory /
   symlinks=(
     ["bin"]="usr/bin"
-    ["etc/mtab"]="../proc/self/mounts"
+    ["${_etc}/mtab"]="../proc/self/mounts"
     ["lib"]="usr/lib"
     ["sbin"]="usr/bin"
     ["usr/local/share/man"]="../man"
@@ -383,25 +403,25 @@ package() {
   fi
   # associative array of target files, their source file, file mode, user and group ownership
   files=(
-    ["etc/${_distro}-release"]="${_distro}-release:644:0:0"
-    ["etc/crypttab"]="crypttab:600:0:0"
-    ["etc/fstab"]="fstab:644:0:0"
-    ["etc/group"]="group:644:0:0"
-    ["etc/gshadow"]="gshadow:600:0:0"
-    ["etc/host.conf"]="host.conf:644:0:0"
-    ["etc/hosts"]="hosts:644:0:0"
-    ["etc/issue"]="issue:644:0:0"
-    ["etc/ld.so.conf"]="ld.so.conf:644:0:0"
-    ["etc/nsswitch.conf"]="nsswitch.conf:644:0:0"
-    ["etc/passwd"]="passwd:644:0:0"
-    ["etc/profile"]="profile:644:0:0"
-    ["etc/profile.d/locale.sh"]="locale.sh:644:0:0"
-    ["etc/resolv.conf"]="resolv.conf:644:0:0"
-    ["etc/securetty"]="securetty:644:0:0"
-    ["etc/shells"]="shells:644:0:0"
-    ["etc/shadow"]="shadow:600:0:0"
-    ["etc/subgid"]="subgid:644:0:0"
-    ["etc/subuid"]="subuid:644:0:0"
+    ["${_etc}/${_distro}-release"]="${_distro}-release:644:0:0"
+    ["${_etc}/crypttab"]="crypttab:600:0:0"
+    ["${_etc}/fstab"]="fstab:644:0:0"
+    ["${_etc}/group"]="group:644:0:0"
+    ["${_etc}/gshadow"]="gshadow:600:0:0"
+    ["${_etc}/host.conf"]="host.conf:644:0:0"
+    ["${_etc}/hosts"]="hosts:644:0:0"
+    ["${_etc}/issue"]="issue:644:0:0"
+    ["${_etc}/ld.so.conf"]="ld.so.conf:644:0:0"
+    ["${_etc}/nsswitch.conf"]="nsswitch.conf:644:0:0"
+    ["${_etc}/passwd"]="passwd:644:0:0"
+    ["${_etc}/profile"]="profile:644:0:0"
+    ["${_etc}/profile.d/locale.sh"]="locale.sh:644:0:0"
+    ["${_etc}/resolv.conf"]="resolv.conf:644:0:0"
+    ["${_etc}/securetty"]="securetty:644:0:0"
+    ["${_etc}/shells"]="shells:644:0:0"
+    ["${_etc}/shadow"]="shadow:600:0:0"
+    ["${_etc}/subgid"]="subgid:644:0:0"
+    ["${_etc}/subuid"]="subuid:644:0:0"
     ["usr/lib/os-release"]="os-release:644:0:0"
     ["usr/lib/sysctl.d/10-${_distro}.conf"]="sysctl:644:0:0"
     ["usr/lib/sysusers.d/${_distro}.conf"]="sysusers:644:0:0"
@@ -476,6 +496,13 @@ package() {
     "${srcdir}/COPYING" \
     -t \
     "${pkgdir}/usr/share/licenses/${pkgname}/"
+  if [[ "${_os}" == "Android" ]]; then
+    printf \
+      "%s\n" \
+      "nameserver 8.8.8.8" \
+      "nameserver 8.8.4.4" >> \
+      "${pkgdir}/${_etc}/resolv.conf"
+  fi
 }
 
 # vim:set ts=2 sw=2 et:
