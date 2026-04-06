@@ -49,6 +49,21 @@ _etc_get() {
     "${_etc}"
 }
 
+_var_get() {
+  local \
+    _var \
+    _os
+  _os="$(
+    uname \
+      -o)"
+  _var="var"
+  if [[ "${_os}" == "Android" ]]; then
+    _var="usr/var"
+  fi
+  echo \
+    "${_var}"
+}
+
 _os="$(
   uname \
     -o)"
@@ -98,7 +113,7 @@ pkgname=(
 )
 pkgver=2026.04.05
 _commit_distro="fc09643d8bb9c17fca17728e221aa9b43a1a9c1d"
-pkgrel=11
+pkgrel=12
 pkgdesc='Base DogeOS files'
 arch=(
   'any'
@@ -121,6 +136,8 @@ if [[ "${_os}" == "Android" ]]; then
 fi
 _etc="$(
   _etc_get)"
+_var="$(
+  _var_get)"
 backup=(
   "${_etc}/crypttab"
   "${_etc}/fstab"
@@ -373,16 +390,16 @@ package() {
     ["usr/share/misc"]="755:0:0"
     ["usr/share/pixmaps"]="755:0:0"
     ["usr/src"]="755:0:0"
-    ["var"]="755:0:0"
-    ["var/cache"]="755:0:0"
-    ["var/empty"]="755:0:0"
-    ["var/games"]="775:0:50"  # allow setgid games (gid 50) to write scores
-    ["var/lib/misc"]="755:0:0"
-    ["var/local"]="755:0:0"
-    ["var/log/old"]="755:0:0"
-    ["var/opt"]="755:0:0"
-    ["var/spool/mail"]="1777:0:0"
-    ["var/tmp"]="1777:0:0"
+    ["${_var}"]="755:0:0"
+    ["${_var}/cache"]="755:0:0"
+    ["${_var}/empty"]="755:0:0"
+    ["${_var}/games"]="775:0:50"  # allow setgid games (gid 50) to write scores
+    ["${_var}/lib/misc"]="755:0:0"
+    ["${_var}/local"]="755:0:0"
+    ["${_var}/log/old"]="755:0:0"
+    ["${_var}/opt"]="755:0:0"
+    ["${_var}/spool/mail"]="1777:0:0"
+    ["${_var}/tmp"]="1777:0:0"
   )
   # associative array with symlink names and their respective targets
   # all paths are relative to the root directory /
@@ -393,9 +410,9 @@ package() {
     ["sbin"]="usr/bin"
     ["usr/local/share/man"]="../man"
     ["usr/sbin"]="bin"
-    ["var/lock"]="../run/lock"
-    ["var/mail"]="spool/mail"
-    ["var/run"]="../run"
+    ["${_var}/lock"]="../run/lock"
+    ["${_var}/mail"]="spool/mail"
+    ["${_var}/run"]="../run"
   )
   if [[ $CARCH = 'x86_64' ]]; then
     symlinks["lib64"]="usr/lib"
