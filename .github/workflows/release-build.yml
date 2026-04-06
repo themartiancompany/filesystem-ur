@@ -971,9 +971,9 @@ jobs:
             ${{ github.event.release.upload_url }}
             # ${{ steps.create_release.outputs.upload_url }}
           asset_path:
-            "iana-etc-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "filesystem-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_name:
-            "dogeos-android-iana-etc-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "dogeos-android-filesystem-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
   arch_release:
@@ -1647,7 +1647,8 @@ jobs:
           pacman \
             -Rdd \
             --noconfirm \
-            "iptables" || \
+            "iptables" \
+            "lz4" || \
           true
           su \
             -c \
@@ -1700,9 +1701,9 @@ jobs:
             ${{ github.event.release.upload_url }}
             # ${{ steps.create_release.outputs.upload_url }}
           asset_path:
-            "iana-etc-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "filesystem-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_name:
-            "dogeos-gnu-iana-etc-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "dogeos-gnu-filesystem-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
   msys2_release:
@@ -2197,9 +2198,9 @@ jobs:
             ${{ github.event.release.upload_url }}
             # ${{ steps.create_release.outputs.upload_url }}
           asset_path:
-            "iana-etc-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "filesystem-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_name:
-            "dogeos-windows-iana-etc-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "dogeos-windows-filesystem-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
 
