@@ -1644,15 +1644,15 @@ jobs:
                 "PKGBUILD" \
                 "pkgbase")"
           # Why?
-          pacman \
-            -Rdd \
-            --noconfirm \
-            "iptables" \
-            "lz4" || \
-          true
+          # pacman \
+          #   -Rdd \
+          #   --noconfirm \
+          #   "iptables" \
+          #   "lz4" || \
+          # true
           su \
             -c \
-              "cd ${PWD} && PKGEXT=".pkg.tar.zst" _evmfs="false" _git_service="github" reallymakepkg -v -u -w '/home/user/${_pkgbase}-build' -- -df --nocheck --skippgpcheck" - \
+              "cd ${PWD} && PKGEXT=".pkg.tar.zst" _evmfs="false" _git_service="github" makepkg -df --nocheck --skippgpcheck" - \
             "user"
       # - name:
       #     Installs the package.
