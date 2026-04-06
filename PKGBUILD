@@ -56,7 +56,7 @@ if [[ ! -v "_ns" ]]; then
   _ns="themartiancompany"
 fi
 if [[ ! -v "_git" ]]; then
-  _git="github"
+  _git="true"
 fi
 if [[ ! -v "_git_service" ]]; then
   _git_service="github"
