@@ -128,6 +128,7 @@ depends=(
 )
 makedepends=(
   "coreutils"
+  "pacman>=7.1.0.16"
 )
 if [[ "${_os}" == "Android" ]]; then
   provides=(
