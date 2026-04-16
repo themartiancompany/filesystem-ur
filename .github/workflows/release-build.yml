@@ -2377,6 +2377,7 @@ jobs:
                 "PKGBUILD" \
                 "pkgbase")" && \
           arch="${_arch}" \
+          PKGEXT=".tar.xz" \
           _evmfs="false" \
           _git="false" \
           _git_service="github" \
