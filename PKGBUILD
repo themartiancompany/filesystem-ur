@@ -113,7 +113,8 @@ pkgname=(
 )
 pkgver=2026.04.05
 _commit_distro="fc09643d8bb9c17fca17728e221aa9b43a1a9c1d"
-pkgrel=23
+_pacman_pkgver="7.1.0.16"
+pkgrel=24
 pkgdesc='Base DogeOS files'
 arch=(
   'any'
@@ -128,8 +129,12 @@ depends=(
 )
 makedepends=(
   "coreutils"
-  "pacman>=7.1.0.16"
 )
+if [[ "${_os}" == "GNU/Linux" ]]; then
+  makedepends=(
+    "pacman>${_pacman_pkgver}"
+  )
+fi
 if [[ "${_os}" == "Android" ]]; then
   provides=(
     "resolv-conf"
