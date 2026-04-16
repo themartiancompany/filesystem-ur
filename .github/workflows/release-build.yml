@@ -2353,6 +2353,11 @@ jobs:
           mkdir \
             -p \
             "/root/package.orig"
+          cp \
+            -v \
+            -r \
+            "PKGBUILD" \
+            "/root/package.orig/PKGBUILD"; \
           export \
             _oldpwd="${PWD}" && \
           cd \
