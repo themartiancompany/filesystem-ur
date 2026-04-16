@@ -2352,65 +2352,7 @@ jobs:
         run: |
           mkdir \
             -p \
-            "/root/temp"
-          # sha256sum \
-          #   "arch-meson"
-          # dos2unix \
-          #   "arch-meson"
-          # sha256sum \
-          #   "${PWD}/"* || \
-          #   true
-          # cp \
-          #   -v \
-          #   -r \
-          #   "${PWD}/* \
-          #   "/root/temp" || \
-          #   true
-          # dos2unix \
-          #   "PKGBUILD" || \
-          # true
-          # recipe-get \
-          #   -v \
-          #   "PKGBUILD" \
-          #   "sha256sums"
-          # cp \
-          #   "PKGBUILD" \
-          #   "PKGBUILD.windows"
-          # cp \
-          #   -v \
-          #   -r \
-          #   "/root/temp/"* \
-          #   "."
-          # mv \
-          #   "PKGBUILD.windows" \
-          #   "PKGBUILD"
-          # rm \
-          #   -rf \
-          #   "/root/temp"
-          # export \
-          #   _pkgbase="$( \
-          #     recipe-get \
-          #       "PKGBUILD" \
-          #       "pkgbase")"
-          # echo \
-          #   "$(uname \
-          #        -o)"
-          # _evmfs="false" \
-          # _git_service="github" \
-          # recipe-get \
-          #   -v \
-          #   "PKGBUILD" \
-          #   "source"
-          # _evmfs="false" \
-          # _git_service="github" \
-          # recipe-get \
-          #   -v \
-          #   "PKGBUILD" \
-          #   "sha256sums"
-          # PKGEXT='.pkg.tar.xz' \
-          # _evmfs="false" \
-          # _git="false" \
-          # _git_service="github" \
+            "/root/package.orig"
           export \
             _oldpwd="${PWD}" && \
           cd \
